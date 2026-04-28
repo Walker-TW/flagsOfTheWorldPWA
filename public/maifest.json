@@ -1,0 +1,11 @@
+{
+  "name": "FlagsOfTheWorldPWA",
+  "short_name": "Flags",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "icons": [
+
+  ]
+}

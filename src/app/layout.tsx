@@ -1,39 +1,38 @@
-import type { Metadata } from "next";
-import ServiceWorkerRegistration from "./components/ServiceWorkerRegistration";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
+import { Providers } from "./providers";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const APP_NAME = "Flags of the World";
+const APP_DEFAULT_TITLE = "Flags of the World PWA";
+const APP_TITLE_TEMPLATE = "%s - Flags of the World";
+const APP_DESCRIPTION =
+  "A Progressive Web App showcasing flags from around the world.";
 
 export const metadata: Metadata = {
-  title: "Flags of the World PWA",
-  description: "A Progressive Web App showcasing flags from around the world.",
+  applicationName: APP_NAME,
+  title: {
+    default: APP_DEFAULT_TITLE,
+    template: APP_TITLE_TEMPLATE,
+  },
+  description: APP_DESCRIPTION,
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Flags of the World PWA",
+    title: APP_DEFAULT_TITLE,
+  },
+  formatDetection: {
+    telephone: false,
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const viewport: Viewport = {
+  themeColor: "#FFFFFF",
+};
+
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
+    <html lang="en" dir="ltr">
       <head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <link
@@ -42,9 +41,8 @@ export default function RootLayout({
           href="/icons/apple-touch-icon.png"
         />
       </head>
-      <body className="min-h-full flex flex-col">
-        <ServiceWorkerRegistration />
-        {children}
+      <body>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

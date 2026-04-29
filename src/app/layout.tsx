@@ -1,6 +1,7 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Providers } from "./providers";
+import "./globals.css";
 
 const APP_NAME = "Flags of the World";
 const APP_DEFAULT_TITLE = "Flags of the World PWA";
@@ -26,10 +27,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = {
-  themeColor: "#FFFFFF",
-};
-
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" dir="ltr">
@@ -41,7 +38,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           href="/icons/apple-touch-icon.png"
         />
       </head>
-      <body>
+      <body className="min-h-screen bg-gray-50 antialiased">
         <Providers>{children}</Providers>
       </body>
     </html>

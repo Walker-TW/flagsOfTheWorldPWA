@@ -1,4 +1,3 @@
-// src/app/serwist/[...path]/route.ts
 import { spawnSync } from "node:child_process";
 import { NextResponse } from "next/server";
 import path from "node:path";

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ServiceWorkerRegistration from "./components/ServiceWorkerRegistration";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -35,8 +36,16 @@ export default function RootLayout({
     >
       <head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/icons/apple-touch-icon.png"
+        />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <ServiceWorkerRegistration />
+        {children}
+      </body>
     </html>
   );
 }

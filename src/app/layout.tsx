@@ -12,7 +12,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// app/layout.tsx
 export const metadata: Metadata = {
   title: "Flags of the World PWA",
   description: "A Progressive Web App showcasing flags from around the world.",
@@ -20,7 +19,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Your App",
+    title: "Flags of the World PWA",
   },
 };
 

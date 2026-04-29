@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <circle cx="96" cy="96" r="88" fill="black"/>
+  
+  <path d="M56,60 H136 V110 C120,118 100,102 85,110 C75,115 65,112 56,110 Z" fill="white"/>
+  
+  <path d="M96,78 l3.5,7 h7.5 l-6,5 l2,7.5 l-7,-4.5 l-7,4.5 l2,-7.5 l-6,-5 h7.5 Z" fill="black"/>
+  
+  <text 
+    x="96" 
+    y="160" 
+    font-family="Arial, sans-serif" 
+    font-size="56" 
+    font-weight="900" 
+    text-anchor="middle" 
+    fill="white">?</text>
+</svg>

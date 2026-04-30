@@ -5,4 +5,4 @@ export interface Country {
   fact: string;
 }
 
-export type CountriesData = Record<string, Country>;
+export type CountriesData = Array< Country>;

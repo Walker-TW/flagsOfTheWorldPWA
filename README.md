@@ -1,3 +1,8 @@
+A little PWA to create flash cards for countries. 
+
+Made to learn serwist and how safari iOS PWA works + its limitations
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

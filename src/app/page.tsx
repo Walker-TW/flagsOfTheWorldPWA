@@ -1,12 +1,12 @@
 import FlagButtonBar from "./components/FlagButtonBar";
 import FlagCard from "./components/FlagCard";
+import type { CountriesData } from "@/data/types";
+import countriesData from "@/data/countries.json";
 
-const testData = {
-  countryCode: "CN",
-  countryName: "China",
-  capital: "Beijing",
-  fact: "China is the most populous country in the world.",
-};
+const countries = countriesData as CountriesData;
+
+const countryToBeChosen =
+  countries[Math.floor(Math.random() * countries.length)];
 
 export default function Home() {
   return (
@@ -18,7 +18,7 @@ export default function Home() {
       </header>
 
       <section className="grow flex items-center justify-center px-4">
-        <FlagCard {...testData} />
+        <FlagCard {...countryToBeChosen} />
       </section>
 
       <footer className="shrink-0 w-full py-6 bg-white border-t border-gray-100">

@@ -29,7 +29,12 @@ export default function FlagCard({
             {continent}
           </div>
         )}
-        <div className="text-2xl font-bold text-gray-800">{name}</div>
+        {/* Long names wrap onto balanced, centred lines at a smaller size. */}
+        <div
+          className={`${name.length > 24 ? "text-xl" : "text-2xl"} font-bold text-gray-800 text-center text-balance`}
+        >
+          {name}
+        </div>
       </div>
       <div className="text-gray-500 text-sm">{capital}</div>
       <div className="text-gray-600 text-sm italic text-center">{fact}</div>

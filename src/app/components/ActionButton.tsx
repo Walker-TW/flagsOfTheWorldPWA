@@ -10,7 +10,6 @@ export default function ActionButton({ correct, onPress }: ActionButtonProps) {
     <button
       onClick={onPress}
       aria-label={correct ? "Correct answer" : "Incorrect answer"}
-      aria-pressed={correct}
       className={`
         w-16 h-16
         flex items-center justify-center

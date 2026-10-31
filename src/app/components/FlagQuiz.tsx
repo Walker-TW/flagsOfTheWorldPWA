@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useEffectEvent, useState } from "react";
 import FlagButtonBar from "./FlagButtonBar";
 import FlagCard from "./FlagCard";
 import QuizResults, { type Answer } from "./QuizResults";
@@ -57,6 +57,20 @@ export default function FlagQuiz() {
     setShownAt(now);
     setPosition((p) => p + 1);
   };
+
+  // On a keyboard, ← marks the flag wrong and → marks it right.
+  const handleKey = useEffectEvent((e: KeyboardEvent) => {
+    if (position >= deck.length || e.repeat) return;
+    if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    e.preventDefault();
+    handleAnswer(e.key === "ArrowRight");
+  });
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, []);
 
   const restart = () => {
     setDeck(buildDeck(length));

@@ -5,6 +5,8 @@ import "./globals.css";
 
 const APP_NAME = "Flags of the World";
 const APP_DEFAULT_TITLE = "Flags of the World PWA";
+// Shown under the icon on a home screen; iOS cuts off long names.
+const HOME_SCREEN_NAME = "Flags4T❤️";
 const APP_TITLE_TEMPLATE = "%s - Flags of the World";
 const APP_DESCRIPTION =
   "A Progressive Web App showcasing flags from around the world.";
@@ -20,7 +22,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: APP_DEFAULT_TITLE,
+    title: HOME_SCREEN_NAME,
   },
   formatDetection: {
     telephone: false,

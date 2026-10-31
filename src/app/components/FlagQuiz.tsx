@@ -9,17 +9,9 @@ import { loadHistory, saveQuiz } from "@/data/quizHistory";
 import SwipeCard from "./SwipeCard";
 import type { CountriesData, Country } from "@/data/types";
 import countriesData from "@/data/countries.json";
+import { shuffle } from "@/data/shuffle";
 
 const countries = countriesData as CountriesData;
-
-function shuffle<T>(items: T[]): T[] {
-  const result = [...items];
-  for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [result[i], result[j]] = [result[j], result[i]];
-  }
-  return result;
-}
 
 // "all", or anything that isn't a positive whole number, plays every country.
 function parseQuizLength(param: string | null): number {

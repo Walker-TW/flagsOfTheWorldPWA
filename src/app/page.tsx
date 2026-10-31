@@ -1,5 +1,6 @@
 import Link from "next/link";
 import countriesData from "@/data/countries.json";
+import FlagMosaic from "./components/FlagMosaic";
 import OpeningMessage from "./components/OpeningMessage";
 
 const QUIZ_LENGTHS = [10, 20, 50, 100];
@@ -16,6 +17,8 @@ const OPENING_MESSAGE = [
 export default function Home() {
   return (
     <main className="min-h-dvh flex flex-col items-center justify-center gap-8 short:gap-4 px-4 py-6 bg-gray-50">
+      <FlagMosaic flagIds={countriesData.map((c) => c.flagId)} />
+
       <div className="text-center">
         <h1 className="text-3xl font-bold text-gray-800">Flags of the World</h1>
         <OpeningMessage messages={OPENING_MESSAGE} />

@@ -33,6 +33,8 @@ export default function FlagQuiz() {
   // When the current flag was shown, so each answer can be timed.
   const [shownAt, setShownAt] = useState(() => Date.now());
   const [history, setHistory] = useState(loadHistory);
+  // The name and details stay hidden until the card is tapped.
+  const [revealed, setRevealed] = useState(false);
 
   const correctCount = answers.filter((a) => a.correct).length;
   const incorrectCount = answers.length - correctCount;
@@ -55,6 +57,7 @@ export default function FlagQuiz() {
       );
     }
     setShownAt(now);
+    setRevealed(false);
     setPosition((p) => p + 1);
   };
 
@@ -77,6 +80,7 @@ export default function FlagQuiz() {
     setPosition(0);
     setAnswers([]);
     setShownAt(Date.now());
+    setRevealed(false);
   };
 
   if (position >= deck.length) {
@@ -103,8 +107,13 @@ export default function FlagQuiz() {
       {/* Scrolls rather than clipping the card if the screen is too short. */}
       <section className="grow min-h-0 flex overflow-y-auto overflow-x-hidden px-4 short:py-2">
         <div className="m-auto">
-          <SwipeCard key={country.flagId} onSwipe={handleAnswer}>
-            <FlagCard {...country} />
+          <SwipeCard
+            key={country.flagId}
+            onSwipe={handleAnswer}
+            onTap={() => setRevealed((r) => !r)}
+            expanded={revealed}
+          >
+            <FlagCard {...country} revealed={revealed} />
           </SwipeCard>
         </div>
       </section>

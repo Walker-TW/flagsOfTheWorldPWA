@@ -96,3 +96,29 @@ test("celebrates a new personal best", async ({ page }) => {
   await playQuiz(page, TEN_ANSWERS);
   await expect(page.getByText("New personal best!")).toBeHidden();
 });
+
+test("hides the flag details until the card is tapped", async ({ page }) => {
+  await page.goto("/quiz?count=10");
+  await expect(page.getByText("1 / 10")).toBeVisible();
+
+  const card = page.getByRole("button", { expanded: false });
+  const prompt = page.getByText("Tap to reveal");
+  const name = page.locator("section .font-bold");
+  await expect(prompt).toBeVisible();
+  await expect(name).toBeHidden();
+
+  // Tapping shows the details, and tapping again hides them.
+  await card.click();
+  await expect(name).toBeVisible();
+  await expect(prompt).toBeHidden();
+  await page.getByRole("button", { expanded: true }).click();
+  await expect(name).toBeHidden();
+
+  // Enter works too, and the next flag starts hidden again.
+  await page.getByRole("button", { expanded: false }).press("Enter");
+  await expect(name).toBeVisible();
+  await page.keyboard.press("ArrowRight");
+  await expect(page.getByText("2 / 10")).toBeVisible();
+  await expect(name).toBeHidden();
+  await expect(prompt).toBeVisible();
+});

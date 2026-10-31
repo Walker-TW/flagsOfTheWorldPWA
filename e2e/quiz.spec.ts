@@ -72,3 +72,27 @@ test("answers with the arrow keys", async ({ page }) => {
   await expect(page.getByText("✓ 1")).toBeVisible();
   await expect(page.getByText("✗ 1")).toBeVisible();
 });
+
+test("celebrates a perfect score", async ({ page }) => {
+  await page.goto("/quiz?count=10");
+  await playQuiz(page, Array(10).fill(true));
+  await expect(page.getByText("100%")).toBeVisible();
+  await expect(page.getByText("Perfect score!")).toBeVisible();
+});
+
+test("celebrates a new personal best", async ({ page }) => {
+  await page.goto("/quiz?count=10");
+  // First quiz: 60%, with nothing earlier to beat.
+  await playQuiz(page, TEN_ANSWERS);
+  await expect(page.getByText("New personal best!")).toBeHidden();
+
+  // Second quiz: 90% beats it.
+  await page.getByRole("button", { name: "Play again" }).click();
+  await playQuiz(page, [...Array(9).fill(true), false]);
+  await expect(page.getByText("New personal best!")).toBeVisible();
+
+  // Third quiz: 60% again is not a best.
+  await page.getByRole("button", { name: "Play again" }).click();
+  await playQuiz(page, TEN_ANSWERS);
+  await expect(page.getByText("New personal best!")).toBeHidden();
+});

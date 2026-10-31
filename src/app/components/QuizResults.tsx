@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { QuizRecord } from "@/data/quizHistory";
 import type { Country } from "@/data/types";
+import Confetti from "./Confetti";
 import {
   AnswerTimeChart,
   ContinentChart,
@@ -19,6 +20,8 @@ interface QuizResultsProps {
   history: QuizRecord[];
   onRestart: () => void;
 }
+
+const MIN_FLAGS_FOR_BEST = 10;
 
 function longestStreak(answers: Answer[]): number {
   let best = 0;
@@ -46,6 +49,21 @@ export default function QuizResults({
   const totalMs = answers.reduce((sum, a) => sum + a.ms, 0);
   const missed = answers.filter((a) => !a.correct).map((a) => a.country);
 
+  // `history` already ends with this quiz. Only quizzes of 10 or more flags
+  // count towards a best, so a lucky short one doesn't.
+  const earlier = history
+    .slice(0, -1)
+    .filter((r) => r.total >= MIN_FLAGS_FOR_BEST);
+  const bestBefore = earlier.length
+    ? Math.max(...earlier.map((r) => Math.round((r.correct / r.total) * 100)))
+    : null;
+  const perfect = correct === answers.length;
+  const newBest =
+    !perfect &&
+    answers.length >= MIN_FLAGS_FOR_BEST &&
+    bestBefore !== null &&
+    percent > bestBefore;
+
   const stats = [
     { label: "Best streak", value: longestStreak(answers) },
     { label: "Total time", value: formatDuration(totalMs) },
@@ -59,7 +77,14 @@ export default function QuizResults({
     <section className="grow min-h-0 overflow-y-auto flex justify-center px-4 py-4">
       <div className="my-auto flex flex-col items-center gap-4 p-8 bg-white rounded-2xl shadow-md w-80 text-center">
         <div className="text-gray-500 text-sm">Quiz complete</div>
+        {perfect && <Confetti />}
+        {newBest && <Confetti pieces={40} />}
         <div className="text-5xl font-bold text-gray-800">{percent}%</div>
+        {(perfect || newBest) && (
+          <div className="px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-sm font-semibold">
+            {perfect ? "🎉 Perfect score!" : "🏆 New personal best!"}
+          </div>
+        )}
         <div className="text-gray-600">
           <span className="text-green-600 font-medium">{correct} correct</span>
           {" · "}

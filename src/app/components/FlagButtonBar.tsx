@@ -9,8 +9,8 @@ interface FlagButtonBarProps {
 export default function FlagButtonBar({ onAnswer }: FlagButtonBarProps) {
   return (
     <div className="flex gap-4 justify-center">
-      <ActionButton correct={true} onPress={() => onAnswer(true)} />
       <ActionButton correct={false} onPress={() => onAnswer(false)} />
+      <ActionButton correct={true} onPress={() => onAnswer(true)} />
     </div>
   );
 }

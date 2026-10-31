@@ -1,8 +1,9 @@
 # Flags of the World
 
-A Progressive Web App for learning the flags of the world. It shows a random
-country's flag along with its name, capital and a fun fact; the ✓ / ✗ buttons
-move on to the next flag.
+A Progressive Web App for learning the flags of the world. Pick a quiz length
+(10, 20, 50, 100 or every country), then work through a shuffled set of flags,
+each shown with its name, capital and a fun fact. Swipe right or tap ✓ if you
+knew it, swipe left or tap ✗ if you didn't; your score is shown at the end.
 
 Built with Next.js 16, React 19, Tailwind CSS 4 and [Serwist](https://serwist.pages.dev/)
 for the service worker.
@@ -28,8 +29,10 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Project layout
 
-- `src/app/page.tsx`: the home page.
-- `src/app/components/FlagQuiz.tsx`: picks a random country on the client and handles answers.
+- `src/app/page.tsx`: landing page where you choose the quiz length.
+- `src/app/quiz/page.tsx`: the quiz page; the length comes from `?count=` (a number or `all`).
+- `src/app/components/FlagQuiz.tsx`: builds the shuffled deck on the client, keeps score and shows the results.
+- `src/app/components/SwipeCard.tsx`: swipe right/left gesture around the flag card.
 - `src/app/~offline/page.tsx`: fallback page the service worker serves when offline.
 - `src/app/serwist/[...path]/route.ts`: bundles `src/sw.ts` with esbuild and serves it at `/serwist/sw.js`.
 - `src/data/countries.json`: country data (name, `flagId`, capital, fact).

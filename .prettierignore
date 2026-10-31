@@ -1,0 +1,10 @@
+# Prettier also skips everything in .gitignore.
+
+# One country per line is easier to scan and diff than Prettier's layout.
+src/data/countries.json
+
+# Markdown is formatted by markdownlint.
+*.md
+
+package-lock.json
+public/

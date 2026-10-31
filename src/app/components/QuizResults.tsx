@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { QuizRecord } from "@/data/quizHistory";
 import type { Country } from "@/data/types";
+import { AnswerTimeChart, ContinentChart, ScoreHistoryChart } from "./QuizCharts";
 
 export interface Answer {
   country: Country;
@@ -10,6 +12,7 @@ export interface Answer {
 
 interface QuizResultsProps {
   answers: Answer[];
+  history: QuizRecord[];
   onRestart: () => void;
 }
 
@@ -28,7 +31,7 @@ function formatDuration(ms: number): string {
   return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
 }
 
-export default function QuizResults({ answers, onRestart }: QuizResultsProps) {
+export default function QuizResults({ answers, history, onRestart }: QuizResultsProps) {
   const correct = answers.filter((a) => a.correct).length;
   const incorrect = answers.length - correct;
   const percent = Math.round((correct / answers.length) * 100);
@@ -60,6 +63,10 @@ export default function QuizResults({ answers, onRestart }: QuizResultsProps) {
             </div>
           ))}
         </dl>
+
+        <AnswerTimeChart answers={answers} />
+        <ContinentChart answers={answers} />
+        <ScoreHistoryChart history={history} />
 
         {missed.length > 0 && (
           <div className="w-full text-left">

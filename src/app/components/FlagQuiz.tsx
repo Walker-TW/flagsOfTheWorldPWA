@@ -5,6 +5,7 @@ import { useState } from "react";
 import FlagButtonBar from "./FlagButtonBar";
 import FlagCard from "./FlagCard";
 import QuizResults, { type Answer } from "./QuizResults";
+import { loadHistory, saveQuiz } from "@/data/quizHistory";
 import SwipeCard from "./SwipeCard";
 import type { CountriesData, Country } from "@/data/types";
 import countriesData from "@/data/countries.json";
@@ -39,13 +40,25 @@ export default function FlagQuiz() {
   const [answers, setAnswers] = useState<Answer[]>([]);
   // When the current flag was shown, so each answer can be timed.
   const [shownAt, setShownAt] = useState(() => Date.now());
+  const [history, setHistory] = useState(loadHistory);
 
   const correctCount = answers.filter((a) => a.correct).length;
   const incorrectCount = answers.length - correctCount;
 
   const handleAnswer = (correct: boolean) => {
     const now = Date.now();
-    setAnswers((a) => [...a, { country: deck[position], correct, ms: now - shownAt }]);
+    const finished = [...answers, { country: deck[position], correct, ms: now - shownAt }];
+    setAnswers(finished);
+    if (finished.length === deck.length) {
+      setHistory(
+        saveQuiz({
+          date: now,
+          total: finished.length,
+          correct: finished.filter((a) => a.correct).length,
+          ms: finished.reduce((sum, a) => sum + a.ms, 0),
+        }),
+      );
+    }
     setShownAt(now);
     setPosition((p) => p + 1);
   };
@@ -58,7 +71,7 @@ export default function FlagQuiz() {
   };
 
   if (position >= deck.length) {
-    return <QuizResults answers={answers} onRestart={restart} />;
+    return <QuizResults answers={answers} history={history} onRestart={restart} />;
   }
 
   const country = deck[position];

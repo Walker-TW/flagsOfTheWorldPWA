@@ -8,6 +8,10 @@ export function generateStaticParams() {
 
 export async function GET() {
   const swSrc = path.resolve(process.cwd(), "src/sw.ts");
+  // Precache the offline fallback page; the revision busts it on each build.
+  const precacheManifest = JSON.stringify([
+    { url: "/~offline", revision: Date.now().toString() },
+  ]);
 
   const result = spawnSync(
     "node_modules/.bin/esbuild",
@@ -16,7 +20,7 @@ export async function GET() {
       "--bundle",
       "--format=esm",
       "--platform=browser",
-      "--define:self.__SW_MANIFEST=[]",
+      `--define:self.__SW_MANIFEST=${precacheManifest}`,
     ],
     { encoding: "utf-8" }
   );

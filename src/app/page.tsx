@@ -1,12 +1,4 @@
-import FlagButtonBar from "./components/FlagButtonBar";
-import FlagCard from "./components/FlagCard";
-import type { CountriesData } from "@/data/types";
-import countriesData from "@/data/countries.json";
-
-const countries = countriesData as CountriesData;
-
-const countryToBeChosen =
-  countries[Math.floor(Math.random() * countries.length)];
+import FlagQuiz from "./components/FlagQuizLoader";
 
 export default function Home() {
   return (
@@ -17,13 +9,7 @@ export default function Home() {
         </h1>
       </header>
 
-      <section className="grow flex items-center justify-center px-4">
-        <FlagCard {...countryToBeChosen} />
-      </section>
-
-      <footer className="shrink-0 w-full py-6 bg-white border-t border-gray-100">
-        <FlagButtonBar />
-      </footer>
+      <FlagQuiz />
     </main>
   );
 }

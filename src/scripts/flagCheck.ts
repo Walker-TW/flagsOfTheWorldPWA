@@ -3,18 +3,19 @@ import path from 'path';
 import countriesData from '../data/countries.json';
 
 const flagsDir = path.resolve(process.cwd(), 'public/nationalFlags');
-const countries = Object.entries(countriesData);
+const countries = countriesData;
+const flagFile = (flagId: string) => `${flagId.toLowerCase()}.svg`;
 
 const missing: string[] = [];
 const found: string[] = [];
 
-for (const [key, country] of countries) {
-  const flagPath = path.join(flagsDir, `${country.flagId}.svg`);
+for (const country of countries) {
+  const flagPath = path.join(flagsDir, flagFile(country.flagId));
   
   if (fs.existsSync(flagPath)) {
-    found.push(`✅ ${key} → ${country.flagId}.svg`);
+    found.push(`✅ ${country.name} → ${flagFile(country.flagId)}`);
   } else {
-    missing.push(`❌ ${key} (${country.name}) → ${country.flagId}.svg NOT FOUND`);
+    missing.push(`❌ ${country.name} → ${flagFile(country.flagId)} NOT FOUND`);
   }
 }
 
@@ -30,7 +31,7 @@ if (missing.length > 0) {
 
 // Also check for SVGs in the folder that have NO matching country
 const svgFiles = fs.readdirSync(flagsDir).filter(f => f.endsWith('.svg'));
-const usedFlagIds = new Set(countries.map(([, c]) => `${c.flagId}.svg`));
+const usedFlagIds = new Set(countries.map((c) => flagFile(c.flagId)));
 const orphaned = svgFiles.filter(f => !usedFlagIds.has(f));
 
 if (orphaned.length > 0) {

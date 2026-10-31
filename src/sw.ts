@@ -19,6 +19,12 @@ declare const self: ServiceWorkerGlobalScope;
 
 const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
+  precacheOptions: {
+    // Serve the precached /quiz page for /quiz?count=10 and friends.
+    ignoreURLParametersMatching: [/^utm_/, /^fbclid$/, /^count$/],
+    // Drop caches left behind by older Serwist versions.
+    cleanupOutdatedCaches: true,
+  },
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: true,

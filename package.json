@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "check:flags": "tsx src/scripts/flagCheck.ts"
+    "check:flags": "tsx src/scripts/flagCheck.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "next": "16.2.4",
@@ -26,6 +28,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
     "lighthouse": "^13.1.0",
+    "prettier": "3.9.10",
     "tailwindcss": "^4",
     "tsx": "^4.21.0",
     "typescript": "^5"

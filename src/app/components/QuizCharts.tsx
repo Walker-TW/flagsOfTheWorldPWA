@@ -69,7 +69,7 @@ export function AnswerTimeChart({ answers }: { answers: Answer[] }) {
 
   return (
     <ChartFrame
-      title="Time per flag"
+      title="Time Per Flag"
       readout={
         current ? (
           `${current.country.name} · ${(current.ms / 1000).toFixed(1)}s ${current.correct ? "✓" : "✗"}`
@@ -142,7 +142,7 @@ export function ContinentChart({ answers }: { answers: Answer[] }) {
     .sort((a, b) => a.share - b.share || b.total - a.total);
 
   return (
-    <ChartFrame title="By continent" readout="Weakest First">
+    <ChartFrame title="By Continent" readout="Weakest First">
       <ul className="flex flex-col gap-1.5">
         {rows.map((row) => (
           <li

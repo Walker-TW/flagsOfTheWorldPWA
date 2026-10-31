@@ -60,3 +60,15 @@ test("is answered by swiping when the phone is held sideways", async ({
   await expect(page.getByText("2 / 10")).toBeVisible();
   await expect(page.getByText("✓ 1")).toBeVisible();
 });
+
+test("answers with the arrow keys", async ({ page }) => {
+  await page.goto("/quiz?count=10");
+  await expect(page.getByText("1 / 10")).toBeVisible();
+
+  await page.keyboard.press("ArrowRight");
+  await expect(page.getByText("2 / 10")).toBeVisible();
+  await page.keyboard.press("ArrowLeft");
+  await expect(page.getByText("3 / 10")).toBeVisible();
+  await expect(page.getByText("✓ 1")).toBeVisible();
+  await expect(page.getByText("✗ 1")).toBeVisible();
+});

@@ -94,13 +94,17 @@ export default function FlagQuiz() {
         </span>
       </div>
 
-      <section className="grow flex items-center justify-center px-4">
-        <SwipeCard key={country.flagId} onSwipe={handleAnswer}>
-          <FlagCard {...country} />
-        </SwipeCard>
+      {/* Scrolls rather than clipping the card if the screen is too short. */}
+      <section className="grow min-h-0 flex overflow-y-auto overflow-x-hidden px-4 short:py-2">
+        <div className="m-auto">
+          <SwipeCard key={country.flagId} onSwipe={handleAnswer}>
+            <FlagCard {...country} />
+          </SwipeCard>
+        </div>
       </section>
 
-      <footer className="shrink-0 w-full py-6 bg-white border-t border-gray-100">
+      {/* Sideways there is no room for the buttons; the card is swiped instead. */}
+      <footer className="shrink-0 w-full py-6 short:hidden bg-white border-t border-gray-100">
         <FlagButtonBar onAnswer={handleAnswer} />
       </footer>
     </>

@@ -9,11 +9,13 @@ export const metadata: Metadata = {
 export default function QuizPage() {
   return (
     <main className="h-dvh flex flex-col bg-gray-50 overflow-hidden">
-      <header className="shrink-0 grid grid-cols-[1fr_auto_1fr] items-center px-4 py-6">
+      <header className="shrink-0 grid grid-cols-[1fr_auto_1fr] items-center px-4 py-6 short:py-2">
         <Link href="/" className="text-sm text-gray-500 hover:text-gray-800">
           ← Back
         </Link>
-        <h1 className="text-2xl font-bold text-gray-800">Flags of the World</h1>
+        <h1 className="text-2xl short:text-lg font-bold text-gray-800">
+          Flags of the World
+        </h1>
       </header>
 
       <FlagQuiz />

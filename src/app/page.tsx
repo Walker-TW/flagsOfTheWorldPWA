@@ -15,25 +15,25 @@ const OPENING_MESSAGE = [
 
 export default function Home() {
   return (
-    <main className="h-dvh flex flex-col items-center justify-center gap-8 px-4 bg-gray-50">
+    <main className="min-h-dvh flex flex-col items-center justify-center gap-8 short:gap-4 px-4 py-6 bg-gray-50">
       <div className="text-center">
         <h1 className="text-3xl font-bold text-gray-800">Flags of the World</h1>
         <OpeningMessage messages={OPENING_MESSAGE} />
       </div>
 
-      <nav className="grid grid-cols-2 gap-4 w-full max-w-xs">
+      <nav className="grid grid-cols-2 short:grid-cols-5 gap-4 w-full max-w-xs short:max-w-2xl">
         {QUIZ_LENGTHS.map((length) => (
           <Link
             key={length}
             href={`/quiz?count=${length}`}
-            className="py-5 rounded-2xl bg-white shadow-md text-center text-2xl font-bold text-gray-800 hover:bg-gray-100 active:scale-95 transition-all"
+            className="py-5 short:py-3 rounded-2xl bg-white shadow-md text-center text-2xl font-bold text-gray-800 hover:bg-gray-100 active:scale-95 transition-all"
           >
             {length}
           </Link>
         ))}
         <Link
           href="/quiz?count=all"
-          className="col-span-2 py-5 rounded-2xl bg-gray-800 shadow-md text-center text-2xl font-bold text-white hover:bg-gray-700 active:scale-95 transition-all"
+          className="col-span-2 short:col-span-1 py-5 short:py-3 rounded-2xl bg-gray-800 shadow-md text-center text-2xl font-bold text-white hover:bg-gray-700 active:scale-95 transition-all"
         >
           All {countriesData.length}
         </Link>

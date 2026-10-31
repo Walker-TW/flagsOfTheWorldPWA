@@ -35,3 +35,28 @@ test("plays a quiz through to the results and tracks history", async ({
     page.getByRole("img", { name: /Score for your last 2 quizzes/ }),
   ).toBeVisible();
 });
+
+test("is answered by swiping when the phone is held sideways", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 852, height: 393 });
+  await page.goto("/quiz?count=10");
+  await expect(page.getByText("1 / 10")).toBeVisible();
+
+  // The whole card fits on screen, and the answer buttons are hidden.
+  const card = page.locator("section .rounded-2xl").first();
+  await expect(card).toBeInViewport({ ratio: 1 });
+  await expect(
+    page.getByRole("button", { name: "Correct answer", exact: true }),
+  ).toBeHidden();
+
+  // Swiping right marks the flag correct.
+  const box = (await card.boundingBox())!;
+  const y = box.y + box.height / 2;
+  await page.mouse.move(box.x + box.width / 2, y);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.width / 2 + 200, y, { steps: 10 });
+  await page.mouse.up();
+  await expect(page.getByText("2 / 10")).toBeVisible();
+  await expect(page.getByText("✓ 1")).toBeVisible();
+});

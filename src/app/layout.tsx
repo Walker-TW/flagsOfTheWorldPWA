@@ -1,6 +1,7 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import WelcomeScreen from "./components/WelcomeScreen";
 import { Providers } from "./providers";
 import "./globals.css";
 
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body className="min-h-screen bg-gray-50 antialiased">
         <Providers>{children}</Providers>
+        <WelcomeScreen />
         {/* Page views only; visits made offline are not recorded. */}
         <Analytics />
       </body>

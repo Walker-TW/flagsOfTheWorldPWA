@@ -8,7 +8,11 @@ const subscribe = () => () => {};
 // client. isClient is false during prerender and hydration, which means the
 // random pick never has to match the server HTML.
 export default function OpeningMessage({ messages }: { messages: string[] }) {
-  const isClient = useSyncExternalStore(subscribe, () => true, () => false);
+  const isClient = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false,
+  );
   const [message] = useState(
     () => messages[Math.floor(Math.random() * messages.length)],
   );

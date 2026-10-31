@@ -47,7 +47,10 @@ export default function FlagQuiz() {
 
   const handleAnswer = (correct: boolean) => {
     const now = Date.now();
-    const finished = [...answers, { country: deck[position], correct, ms: now - shownAt }];
+    const finished = [
+      ...answers,
+      { country: deck[position], correct, ms: now - shownAt },
+    ];
     setAnswers(finished);
     if (finished.length === deck.length) {
       setHistory(
@@ -71,7 +74,9 @@ export default function FlagQuiz() {
   };
 
   if (position >= deck.length) {
-    return <QuizResults answers={answers} history={history} onRestart={restart} />;
+    return (
+      <QuizResults answers={answers} history={history} onRestart={restart} />
+    );
   }
 
   const country = deck[position];

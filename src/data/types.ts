@@ -15,4 +15,4 @@ export interface Country {
   fact: string;
 }
 
-export type CountriesData = Array< Country>;
+export type CountriesData = Array<Country>;

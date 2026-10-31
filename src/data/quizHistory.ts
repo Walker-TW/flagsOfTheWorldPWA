@@ -13,7 +13,9 @@ const MAX_RECORDS = 50;
 
 export function loadHistory(): QuizRecord[] {
   try {
-    const parsed: unknown = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
+    const parsed: unknown = JSON.parse(
+      localStorage.getItem(STORAGE_KEY) ?? "[]",
+    );
     return Array.isArray(parsed) ? parsed : [];
   } catch {
     return [];

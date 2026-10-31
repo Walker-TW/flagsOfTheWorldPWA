@@ -12,7 +12,9 @@ export function generateStaticParams() {
 function listFiles(dir: string): string[] {
   return readdirSync(dir, { recursive: true, withFileTypes: true })
     .filter((entry) => entry.isFile())
-    .map((entry) => path.relative(dir, path.join(entry.parentPath, entry.name)));
+    .map((entry) =>
+      path.relative(dir, path.join(entry.parentPath, entry.name)),
+    );
 }
 
 function fileHash(file: string): string {
@@ -73,7 +75,7 @@ export async function GET() {
       "--platform=browser",
       "--define:self.__SW_MANIFEST=__PRECACHE_MANIFEST__",
     ],
-    { encoding: "utf-8" }
+    { encoding: "utf-8" },
   );
 
   if (result.error || result.status !== 0) {

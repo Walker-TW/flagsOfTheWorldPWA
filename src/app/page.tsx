@@ -1,14 +1,24 @@
 import Link from "next/link";
 import countriesData from "@/data/countries.json";
+import OpeningMessage from "./components/OpeningMessage";
 
 const QUIZ_LENGTHS = [10, 20, 50, 100];
+
+const OPENING_MESSAGE = [
+  `Welcome to the Flags of the World Quiz!🌍`,
+  "How many flags do you want to try?",
+  "Test your knowledge of national flags and see how many you can identify correctly!",
+  "Choose a quiz length below to get started.",
+  "Sometimes shorter is better as long as its used correctly. 😉",
+  "Good luck and have fun! 🎉",
+];
 
 export default function Home() {
   return (
     <main className="h-dvh flex flex-col items-center justify-center gap-8 px-4 bg-gray-50">
       <div className="text-center">
         <h1 className="text-3xl font-bold text-gray-800">Flags of the World</h1>
-        <p className="mt-2 text-gray-500">How many flags do you want to try?</p>
+        <OpeningMessage messages={OPENING_MESSAGE} />
       </div>
 
       <nav className="grid grid-cols-2 gap-4 w-full max-w-xs">

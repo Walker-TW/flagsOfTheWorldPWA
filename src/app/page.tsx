@@ -6,12 +6,11 @@ import OpeningMessage from "./components/OpeningMessage";
 const QUIZ_LENGTHS = [10, 20, 50, 100];
 
 const OPENING_MESSAGE = [
-  `Welcome to the Flags of the World Quiz!🌍`,
-  "How many flags do you want to try?",
-  "Test your knowledge of national flags and see how many you can identify correctly!",
+  `🌍 Welcome to the Flags of the World Quiz! 🌍`,
+  "How many flags do you want to try???",
   "Choose a quiz length below to get started.",
   "Sometimes shorter is better as long as its used correctly. 😉",
-  "Good luck and have fun! 🎉",
+  "There are almost as many countries as you have stuffed animals 🧸",
 ];
 
 export default function Home() {

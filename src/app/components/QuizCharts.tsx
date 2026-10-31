@@ -40,7 +40,9 @@ function ChartFrame({
     <figure className="w-full text-left">
       <figcaption className="flex justify-between items-baseline gap-2 mb-2 text-sm">
         <span className="font-medium text-gray-600">{title}</span>
-        <span className="text-xs text-gray-500 tabular-nums truncate">{readout}</span>
+        <span className="text-xs text-gray-500 tabular-nums truncate">
+          {readout}
+        </span>
       </figcaption>
       {children}
     </figure>
@@ -86,13 +88,24 @@ export function AnswerTimeChart({ answers }: { answers: Answer[] }) {
         aria-label={`Answer time for each of ${answers.length} flags, slowest ${(maxMs / 1000).toFixed(1)} seconds`}
         onPointerLeave={clear}
       >
-        <line x1={0} x2={WIDTH} y1={height - 0.5} y2={height - 0.5} stroke={GRID} />
+        <line
+          x1={0}
+          x2={WIDTH}
+          y1={height - 0.5}
+          y2={height - 0.5}
+          stroke={GRID}
+        />
         {answers.map((answer, i) => {
           const h = Math.max(2, (answer.ms / maxMs) * (height - 4));
           return (
             <g key={answer.country.flagId}>
               <path
-                d={barPath(i * slot + gap / 2, height - h, Math.max(slot - gap, 0.5), h)}
+                d={barPath(
+                  i * slot + gap / 2,
+                  height - h,
+                  Math.max(slot - gap, 0.5),
+                  h,
+                )}
                 fill={answer.correct ? CORRECT : MISSED}
                 opacity={active === null || active === i ? 1 : 0.35}
               />
@@ -116,7 +129,10 @@ export function AnswerTimeChart({ answers }: { answers: Answer[] }) {
 export function ContinentChart({ answers }: { answers: Answer[] }) {
   const byContinent = new Map<string, { correct: number; total: number }>();
   for (const { country, correct } of answers) {
-    const tally = byContinent.get(country.continent) ?? { correct: 0, total: 0 };
+    const tally = byContinent.get(country.continent) ?? {
+      correct: 0,
+      total: 0,
+    };
     tally.total += 1;
     if (correct) tally.correct += 1;
     byContinent.set(country.continent, tally);
@@ -126,7 +142,7 @@ export function ContinentChart({ answers }: { answers: Answer[] }) {
     .sort((a, b) => a.share - b.share || b.total - a.total);
 
   return (
-    <ChartFrame title="By continent" readout="weakest first">
+    <ChartFrame title="By continent" readout="Weakest First">
       <ul className="flex flex-col gap-1.5">
         {rows.map((row) => (
           <li
@@ -151,7 +167,10 @@ export function ContinentChart({ answers }: { answers: Answer[] }) {
 }
 
 const formatDate = (date: number) =>
-  new Date(date).toLocaleDateString(undefined, { day: "numeric", month: "short" });
+  new Date(date).toLocaleDateString(undefined, {
+    day: "numeric",
+    month: "short",
+  });
 
 export function ScoreHistoryChart({ history }: { history: QuizRecord[] }) {
   const { active, setActive, clear } = useActiveMark();
@@ -160,7 +179,9 @@ export function ScoreHistoryChart({ history }: { history: QuizRecord[] }) {
   if (recent.length < 2) {
     return (
       <ChartFrame title="Your scores" readout="">
-        <p className="text-xs text-gray-500">Finish another quiz to see your trend.</p>
+        <p className="text-xs text-gray-500">
+          Finish another quiz to see your trend.
+        </p>
       </ChartFrame>
     );
   }
@@ -191,7 +212,13 @@ export function ScoreHistoryChart({ history }: { history: QuizRecord[] }) {
       >
         {[0, 50, 100].map((p) => (
           <g key={p}>
-            <line x1={pad.left} x2={WIDTH - pad.right} y1={y(p)} y2={y(p)} stroke={GRID} />
+            <line
+              x1={pad.left}
+              x2={WIDTH - pad.right}
+              y1={y(p)}
+              y2={y(p)}
+              stroke={GRID}
+            />
             <text
               x={pad.left - 6}
               y={y(p)}
@@ -203,7 +230,13 @@ export function ScoreHistoryChart({ history }: { history: QuizRecord[] }) {
             </text>
           </g>
         ))}
-        <polyline points={points} fill="none" stroke={INK} strokeWidth={2} strokeLinejoin="round" />
+        <polyline
+          points={points}
+          fill="none"
+          stroke={INK}
+          strokeWidth={2}
+          strokeLinejoin="round"
+        />
         {recent.map((r, i) => (
           <circle
             key={r.date}

@@ -2,11 +2,15 @@
 
 import ActionButton from "./ActionButton";
 
-export default function FlagButtonBar() {
+interface FlagButtonBarProps {
+  onAnswer: (correct: boolean) => void;
+}
+
+export default function FlagButtonBar({ onAnswer }: FlagButtonBarProps) {
   return (
     <div className="flex gap-4 justify-center">
-      <ActionButton correct={true} onPress={() => console.log("Correct")} />
-      <ActionButton correct={false} onPress={() => console.log("Incorrect")} />
+      <ActionButton correct={false} onPress={() => onAnswer(false)} />
+      <ActionButton correct={true} onPress={() => onAnswer(true)} />
     </div>
   );
 }

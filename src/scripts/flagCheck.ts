@@ -38,3 +38,6 @@ if (orphaned.length > 0) {
   console.log("\n=== SVGs WITH NO MATCHING COUNTRY ===\n");
   orphaned.forEach((f) => console.log(`⚠️  ${f}`));
 }
+
+// Fail CI when a country has no flag; unused SVGs are only a warning.
+if (missing.length > 0) process.exitCode = 1;

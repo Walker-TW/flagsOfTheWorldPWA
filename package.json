@@ -10,7 +10,8 @@
     "check:flags": "tsx src/scripts/flagCheck.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:e2e:gift": "NEXT_PUBLIC_EDITION=gift node --env-file=e2e/gift.env node_modules/.bin/playwright test"
   },
   "dependencies": {
     "@vercel/analytics": "2.0.1",

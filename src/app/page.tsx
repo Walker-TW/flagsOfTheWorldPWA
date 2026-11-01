@@ -1,16 +1,15 @@
 import Link from "next/link";
 import countriesData from "@/data/countries.json";
+import { GIFT_OPENING_MESSAGES } from "@/edition";
 import FlagMosaic from "./components/FlagMosaic";
 import OpeningMessage from "./components/OpeningMessage";
 
 const QUIZ_LENGTHS = [10, 20, 50, 100];
 
-const OPENING_MESSAGE = [
+const OPENING_MESSAGES = [
   `🌍 Welcome to the Flags of the World Quiz! 🌍`,
   "How many flags do you want to try???",
   "Choose a quiz length below to get started.",
-  "Sometimes shorter is better as long as its used correctly. 😉",
-  "There are almost as many countries as you have stuffed animals 🧸",
 ];
 
 export default function Home() {
@@ -20,7 +19,9 @@ export default function Home() {
 
       <div className="text-center">
         <h1 className="text-3xl font-bold text-gray-800">Flags of the World</h1>
-        <OpeningMessage messages={OPENING_MESSAGE} />
+        <OpeningMessage
+          messages={[...OPENING_MESSAGES, ...GIFT_OPENING_MESSAGES]}
+        />
       </div>
 
       <nav className="grid grid-cols-2 short:grid-cols-5 gap-4 w-full max-w-xs short:max-w-2xl">

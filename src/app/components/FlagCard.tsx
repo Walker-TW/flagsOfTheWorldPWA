@@ -25,6 +25,11 @@ export default function FlagCard({
           alt={revealed ? name : "Mystery flag"}
           width={100}
           height={100}
+          // Fit the flag inside a fixed 100px box, whatever its shape. Letting
+          // the height shrink to the flag instead makes Next.js warn.
+          className="size-[100px] object-contain"
+          // The flag is the main thing on screen, so don't lazy-load it.
+          loading="eager"
         />
       </div>
       <div className="relative min-w-0">

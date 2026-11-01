@@ -1,14 +1,13 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { HOME_SCREEN_NAME, IS_GIFT } from "@/edition";
 import WelcomeScreen from "./components/WelcomeScreen";
 import { Providers } from "./providers";
 import "./globals.css";
 
 const APP_NAME = "Flags of the World";
 const APP_DEFAULT_TITLE = "Flags of the World PWA";
-// Shown under the icon on a home screen; iOS cuts off long names.
-const HOME_SCREEN_NAME = "Flags4T❤️";
 const APP_TITLE_TEMPLATE = "%s - Flags of the World";
 const APP_DESCRIPTION =
   "A Progressive Web App showcasing flags from around the world.";
@@ -20,7 +19,6 @@ export const metadata: Metadata = {
     template: APP_TITLE_TEMPLATE,
   },
   description: APP_DESCRIPTION,
-  manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -44,7 +42,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body className="min-h-screen bg-gray-50 antialiased">
         <Providers>{children}</Providers>
-        <WelcomeScreen />
+        {IS_GIFT && <WelcomeScreen />}
         {/* Page views only; visits made offline are not recorded. */}
         <Analytics />
       </body>

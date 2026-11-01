@@ -1,13 +1,11 @@
 "use client";
 
 import { useState, useSyncExternalStore } from "react";
+import { WELCOME_BUTTON, WELCOME_MESSAGE, WELCOME_TITLE } from "@/edition";
 import Confetti from "./Confetti";
 
-// Shown once, the first time the app is opened on a device.
-// Change the words here to change what T sees.
-const WELCOME_TITLE = "Hey T! ❤️";
-const WELCOME_MESSAGE = "WHAT UP GUUUUUURL.";
-const WELCOME_BUTTON = "LET'S DO THIS!";
+// Shown once, the first time the app is opened on a device. The words are set
+// as environment variables on the gift deployment; see src/edition.ts.
 
 export const WELCOME_SEEN_KEY = "welcomeSeen";
 
@@ -62,7 +60,7 @@ export default function WelcomeScreen() {
         <h2 id="welcome-title" className="text-2xl font-bold text-gray-800">
           {WELCOME_TITLE}
         </h2>
-        <p className="text-gray-600">{WELCOME_MESSAGE}</p>
+        {WELCOME_MESSAGE && <p className="text-gray-600">{WELCOME_MESSAGE}</p>}
         <button
           onClick={dismiss}
           className="w-full py-3 rounded-xl bg-gray-800 text-white font-medium hover:bg-gray-700 active:scale-95 transition-all"

@@ -52,7 +52,7 @@ function buildPrecacheManifest() {
     offline,
     { url: "/", revision: buildRevision },
     { url: "/quiz", revision: buildRevision },
-    { url: "/manifest.json", revision: fileHash("public/manifest.json") },
+    { url: "/manifest.webmanifest", revision: buildRevision },
     { url: "/appIcon.svg", revision: fileHash("public/appIcon.svg") },
     ...publicEntries("icons"),
     ...publicEntries("nationalFlags"),
